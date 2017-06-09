@@ -38,6 +38,18 @@
       <HintPath>..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PeanutButter.RandomGenerators, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PeanutButter.RandomGenerators.1.2.51\lib\net45\PeanutButter.RandomGenerators.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PeanutButter.TestUtils.Generic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PeanutButter.TestUtils.Generic.1.2.51\lib\net45\PeanutButter.TestUtils.Generic.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PeanutButter.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PeanutButter.Utils.1.2.51\lib\net45\PeanutButter.Utils.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -60,8 +72,13 @@
       <Project>{81EACCE3-39A0-4DB4-BA6E-975824DCC69B}</Project>
       <Name>Web_API_Demo.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Web_API_Demo.Tests.Common\Web_API_Demo.Tests.Common.csproj">
+      <Project>{67B498F4-9734-4143-920D-7FEC68E4554D}</Project>
+      <Name>Web_API_Demo.Tests.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

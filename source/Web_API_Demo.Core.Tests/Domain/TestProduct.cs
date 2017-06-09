@@ -12,15 +12,13 @@ namespace Web_API_Demo.Core.Tests.Domain
         public void Construct()
         {
             //---------------Set up test pack-------------------
-
             //---------------Assert Precondition----------------
-
             //---------------Execute Test ----------------------
             Assert.DoesNotThrow(() => new Product());
             //---------------Test Result -----------------------
         }
 
-        [TestCase("Id", typeof(int))]
+        [TestCase("Id", typeof(Guid))]
         [TestCase("Name", typeof(string))]
         [TestCase("Type", typeof(string))]
         [TestCase("Description", typeof(string))]
@@ -29,12 +27,9 @@ namespace Web_API_Demo.Core.Tests.Domain
         {
             //---------------Set up test pack-------------------
             var sut = typeof(Product);
-
             //---------------Assert Precondition----------------
-
             //---------------Execute Test ----------------------
             sut.ShouldHaveProperty(propertyName, propertyType);
-
             //---------------Test Result -----------------------
         }
     }
