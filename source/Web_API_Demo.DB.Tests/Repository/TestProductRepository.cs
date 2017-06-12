@@ -131,7 +131,7 @@ namespace Web_API_Demo.DB.Tests.Repository
             //---------------Execute Test ----------------------
             var ex = Assert.Throws<ArgumentNullException>(() => repository.Get(Guid.Empty));
             //---------------Test Result -----------------------
-            Assert.AreEqual("id",ex.ParamName);
+            Assert.AreEqual("id", ex.ParamName);
         }
 
         [Test]
@@ -148,6 +148,83 @@ namespace Web_API_Demo.DB.Tests.Repository
             var result = repository.Get(product.Id);
             //---------------Test Result -----------------------
             Assert.AreEqual(product, result);
+        }
+
+        [Test]
+        public void Remove_GivenIdIsNull_ShouldThrowException()
+        {
+            //---------------Set up test pack-------------------
+            var dbContext = CreateProductRepositoryDbContext();
+            var repository = CreateProductRepository(dbContext);
+            //---------------Assert Precondition----------------
+
+            //---------------Execute Test ----------------------
+            var ex = Assert.Throws<ArgumentNullException>(() => repository.Remove(Guid.Empty));
+            //---------------Test Result -----------------------
+            Assert.AreEqual("id", ex.ParamName);
+        }
+
+        [Test]
+        public void Remove_GivenIdIsValid_ShouldRemoveProduct()
+        {
+            //---------------Set up test pack-------------------
+            var product = new ProductBuilder().WithRandomProps().Build();
+            var dbSet = new FakeDbSet<Product> { product };
+            var dbContext = CreateProductRepositoryDbContext(dbSet);
+            var repository = CreateProductRepository(dbContext);        
+            //---------------Assert Precondition----------------
+            
+            //---------------Execute Test ----------------------
+            repository.Remove(product.Id);
+            //---------------Test Result -----------------------
+            var productFromRepo = repository.GetAll();
+            CollectionAssert.DoesNotContain(productFromRepo, product);
+        }
+
+        [Test]
+        public void Update_GivenInvalidProduct_ShouldThrowException()
+        {
+            //---------------Set up test pack-------------------
+            var dbContext = CreateProductRepositoryDbContext();
+            var repository = CreateProductRepository(dbContext);
+            //---------------Assert Precondition----------------
+
+            //---------------Execute Test ----------------------
+            var ex = Assert.Throws<ArgumentNullException>(() => repository.Update(null));
+            //---------------Test Result -----------------------
+            Assert.AreEqual("product", ex.ParamName);
+        }
+
+        [Test]
+        public void Update_GivenValidProduct_ShouldReturnIndex()
+        {
+            //---------------Set up test pack-------------------
+            var product = new ProductBuilder().WithRandomProps().Build();
+            var dbSet = new FakeDbSet<Product> { product };
+            var dbContext = CreateProductRepositoryDbContext(dbSet);
+            var repository = CreateProductRepository(dbContext);
+            //---------------Assert Precondition----------------
+
+            //---------------Execute Test ----------------------
+            var result = repository.Update(product);
+            //---------------Test Result -----------------------
+            Assert.AreEqual(true, result);
+        }
+
+        [Test]
+        public void Update_GivenValidProduct_ShouldCallSaveChanged()
+        {
+            //---------------Set up test pack-------------------
+            var product = new ProductBuilder().WithRandomProps().Build();
+            var dbSet = new FakeDbSet<Product> { product };
+            var dbContext = CreateProductRepositoryDbContext(dbSet);
+            var repository = CreateProductRepository(dbContext);
+            //---------------Assert Precondition----------------
+
+            //---------------Execute Test ----------------------
+            var result = repository.Update(product);
+            //---------------Test Result -----------------------
+            dbContext.Received().SaveChanges();
         }
 
         public ProductRepository CreateProductRepository(IProductDbContext productDbContext)

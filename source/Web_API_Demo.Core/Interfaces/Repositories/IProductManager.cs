@@ -9,7 +9,7 @@ namespace Web_API_Demo.Core.Interfaces.Repositories
         List<Product> GetAll();
         Product Get(Guid? id);
         void Add(Product product);
-        void Remove(Guid id);
+        void Remove(Guid? id);
         bool Update(Product product);
     }
 }

@@ -37,14 +37,28 @@ namespace Web_API_Demo.DB.Repository
             return _productDbContext.Products.ToList();
         }
 
-        public void Remove(Guid id)
+        public void Remove(Guid? id)
         {
-            throw new NotImplementedException();
+            if (id == Guid.Empty) throw new ArgumentNullException(nameof(id));
+            var product = _productDbContext.Products.FirstOrDefault(x => x.Id == id);
+            _productDbContext.Products.Remove(product);
         }
 
         public bool Update(Product product)
         {
-            throw new NotImplementedException();
+            var isUpdated = false;
+            if (product == null) throw new ArgumentNullException(nameof(product));
+            var originalProduct = _productDbContext.Products.FirstOrDefault(x => x.Id == product.Id);
+            if (originalProduct != null)
+            {
+                originalProduct.Description = product.Description;
+                originalProduct.Name = product.Name;
+                originalProduct.Price = product.Price;
+                originalProduct.Type = product.Type;               
+                _productDbContext.SaveChanges();
+                isUpdated = true;
+            }
+            return isUpdated;
         }
     }
 }
