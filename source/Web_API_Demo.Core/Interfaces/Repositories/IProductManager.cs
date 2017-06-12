@@ -7,7 +7,7 @@ namespace Web_API_Demo.Core.Interfaces.Repositories
     public interface IProductManager
     {
         List<Product> GetAll();
-        Product Get(Guid id);
+        Product Get(Guid? id);
         void Add(Product product);
         void Remove(Guid id);
         bool Update(Product product);

@@ -26,9 +26,10 @@ namespace Web_API_Demo.DB.Repository
             _productDbContext.SaveChanges();
         }
 
-        public Product Get(Guid id)
+        public Product Get(Guid? id)
         {
-            throw new NotImplementedException();
+            if (id == Guid.Empty) throw new ArgumentNullException(nameof(id));
+            return _productDbContext.Products.FirstOrDefault(x => x.Id == id);
         }
 
         public List<Product> GetAll()

@@ -8,6 +8,7 @@ using Web_API_Demo.DB.Repository;
 using Web_API_Demo.Tests.Common.Domain;
 using System.Data.Entity;
 using System.Linq;
+using Web_API_Demo.Tests.Common.Helpers;
 
 namespace Web_API_Demo.DB.Tests.Repository
 {
@@ -117,6 +118,36 @@ namespace Web_API_Demo.DB.Tests.Repository
             repository.Add(product);
             //---------------Test Result -----------------------
             dbContext.Received().SaveChanges();
+        }
+
+        [Test]
+        public void Get_GivenIdIsNull_ShouldThrowAnEsception()
+        {
+            //---------------Set up test pack-------------------
+            var dbContext = CreateProductRepositoryDbContext();
+            var repository = CreateProductRepository(dbContext);
+            //---------------Assert Precondition----------------
+
+            //---------------Execute Test ----------------------
+            var ex = Assert.Throws<ArgumentNullException>(() => repository.Get(Guid.Empty));
+            //---------------Test Result -----------------------
+            Assert.AreEqual("id",ex.ParamName);
+        }
+
+        [Test]
+        public void Get_GivenAValidId_ShouldReturnProduct()
+        {
+            //---------------Set up test pack-------------------
+            var product = new ProductBuilder().WithRandomProps().Build();
+            var dbSet = new FakeDbSet<Product> { product };
+            var dbContext = CreateProductRepositoryDbContext(dbSet);
+            var repository = CreateProductRepository(dbContext);
+            //---------------Assert Precondition----------------
+
+            //---------------Execute Test ----------------------
+            var result = repository.Get(product.Id);
+            //---------------Test Result -----------------------
+            Assert.AreEqual(product, result);
         }
 
         public ProductRepository CreateProductRepository(IProductDbContext productDbContext)
