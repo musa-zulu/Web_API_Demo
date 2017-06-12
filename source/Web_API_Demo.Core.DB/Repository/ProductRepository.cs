@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Web_API_Demo.Core.DB;
 using Web_API_Demo.Core.Domain;
 using Web_API_Demo.Core.Interfaces.Repositories;
@@ -8,7 +9,7 @@ namespace Web_API_Demo.DB.Repository
 {
     public class ProductRepository : IProductManager
     {
-        private readonly IProductDbContext _productDbContext;        
+        private readonly IProductDbContext _productDbContext;
 
         public ProductRepository(IProductDbContext productDbContext)
         {
@@ -17,25 +18,25 @@ namespace Web_API_Demo.DB.Repository
             this._productDbContext = productDbContext;
         }
 
-        public Product Add(Product product)
+        public void Add(Product product)
         {
             if (product == null)
-                throw new ArgumentNullException("product");
-
-            return null;
+                throw new ArgumentNullException(nameof(product));
+            _productDbContext.Products.Add(product);
+            _productDbContext.SaveChanges();
         }
 
-        public Product Get(int id)
+        public Product Get(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Product> GetAll()
+        public List<Product> GetAll()
         {
-            throw new NotImplementedException();
+            return _productDbContext.Products.ToList();
         }
 
-        public void Remove(int id)
+        public void Remove(Guid id)
         {
             throw new NotImplementedException();
         }

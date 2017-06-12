@@ -8,7 +8,7 @@ namespace Web_API_Demo.DB.Migrations.Migrations
         public override void Up()
         {
             Create.Table(DBConstants.Tables.ProductTable.TableName)
-                .WithColumn(DBConstants.Tables.ProductTable.Columns.Id).AsInt16().PrimaryKey()
+                .WithColumn(DBConstants.Tables.ProductTable.Columns.Id).AsGuid().PrimaryKey()
                 .WithColumn(DBConstants.Tables.ProductTable.Columns.Name).AsString(512)
                 .WithColumn(DBConstants.Tables.ProductTable.Columns.Type).AsString(30)
                 .WithColumn(DBConstants.Tables.ProductTable.Columns.Description).AsString(int.MaxValue)
