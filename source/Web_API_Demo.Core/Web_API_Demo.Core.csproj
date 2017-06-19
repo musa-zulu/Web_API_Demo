@@ -43,7 +43,7 @@
     <Compile Include="DefaultDateTimeProvider.cs" />
     <Compile Include="Domain\Product.cs" />
     <Compile Include="IDateTimeProvider.cs" />
-    <Compile Include="Interfaces\Repositories\IProductManager.cs" />
+    <Compile Include="Interfaces\Repositories\IProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

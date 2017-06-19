@@ -7,14 +7,14 @@ using Web_API_Demo.Core.Interfaces.Repositories;
 
 namespace Web_API_Demo.DB.Repository
 {
-    public class ProductRepository : IProductManager
+    public class ProductRepository : IProductRepository
     {
         private readonly IProductDbContext _productDbContext;
 
         public ProductRepository(IProductDbContext productDbContext)
         {
             if (productDbContext == null)
-                throw new ArgumentNullException("productDbContext");
+                throw new ArgumentNullException(nameof(productDbContext));
             this._productDbContext = productDbContext;
         }
 

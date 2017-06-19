@@ -4,7 +4,7 @@ using Web_API_Demo.Core.Domain;
 
 namespace Web_API_Demo.Core.Interfaces.Repositories
 {
-    public interface IProductManager
+    public interface IProductRepository
     {
         List<Product> GetAll();
         Product Get(Guid? id);
